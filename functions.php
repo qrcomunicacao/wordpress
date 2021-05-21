@@ -55,5 +55,20 @@ function hook_javascript() { ?>
 
 <!-- Código aqui -->
 
+<!-- Menu aparece quando rola a tela pra cima -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+var lastScrollTop = 0;
+$(window).scroll(function(event){
+   var st = $(this).scrollTop();
+   if (st > lastScrollTop || st === 0){
+      $('.elementor-sticky--effects').slideUp("fast");
+   } else {
+      $('.elementor-sticky--effects').slideDown("fast");
+   }
+   lastScrollTop = st;
+});
+</script>
+
 <?php }
 add_action('wp_head', 'hook_javascript');
