@@ -72,3 +72,9 @@ $(window).scroll(function(event){
 
 <?php }
 add_action('wp_head', 'hook_javascript');
+
+// Um produto por venda
+add_filter( 'woocommerce_add_to_cart_validation', 'um_produto_por_venda', 9999, 2 );
+function um_produto_por_venda( $passed, $added_product_id ) {
+   wc_empty_cart();
+   return $passed;
