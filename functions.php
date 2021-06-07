@@ -78,3 +78,12 @@ add_filter( 'woocommerce_add_to_cart_validation', 'um_produto_por_venda', 9999, 
 function um_produto_por_venda( $passed, $added_product_id ) {
    wc_empty_cart();
    return $passed;
+
+// Post Excerpt
+function funcao_resumo_post() {
+	$excerpt = get_the_excerpt();
+	$excerpt = substr($excerpt, 0, 12);
+	$result = substr($excerpt, 0, strrpos($excerpt, ' '));
+	echo $result;
+}
+add_shortcode('resumo_post', 'funcao_resumo_post');
