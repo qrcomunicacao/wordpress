@@ -43,16 +43,13 @@ add_shortcode('acf_repeater_shortcode', 'acf_repeater');
 
 // Adicionar elemnto após a tag <body>
 function hook_after_body() { ?>
-
 <!-- Código aqui -->
-
 <?php }
 add_action('after_body', 'hook_after_body');
 
 
 // Adicionar elemento no header do site
 function hook_javascript() { ?>
-
 <!-- Código aqui -->
 
 <!-- Menu aparece quando rola a tela pra cima -->
@@ -87,3 +84,9 @@ function funcao_resumo_post() {
 	echo $result;
 }
 add_shortcode('resumo_post', 'funcao_resumo_post');
+
+// Post content
+function post_content(){
+    return get_the_content();
+}
+add_shortcode('content','post_content');
