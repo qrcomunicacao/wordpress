@@ -1,0 +1,23 @@
+<h1>Lista de Pedidos</h1>
+<h4>v22.06.24.0051</h4>
+<!-- Documentação: https://woocommerce.github.io/woocommerce-rest-api-docs/?php#introduction -->
+
+<?php
+$site = 'https://vilarejo.cafe';
+$consumer_key = 'ck_1234';
+$consumer_secret = 'cs_1234';
+$url = $site . '/wp-json/wc/v3/orders?consumer_key=' . $consumer_key . '&consumer_secret=' . $consumer_secret . '&per_page=1';
+
+$ch = curl_init(); //  Initiate curl
+curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true ); // Will return the response, if false it print the response
+curl_setopt ( $ch, CURLOPT_URL, $url ); // Set the url
+
+$result = curl_exec ( $ch ); // Execute
+curl_close ( $ch ) ; // Closing
+
+ echo '<b>Resultado 01</b><br>' . $result;
+
+ echo '<br><br><br><b>Resultado 02</b><br>';
+ var_dump(json_decode($result, true)); // Will dump a beauty json :3
+
+?>
