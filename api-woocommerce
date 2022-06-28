@@ -1,23 +1,39 @@
 <h1>Lista de Pedidos</h1>
-<h4>v22.06.24.0051</h4>
+<h4>v22.06.28.1540</h4>
 <!-- Documentação: https://woocommerce.github.io/woocommerce-rest-api-docs/?php#introduction -->
 
 <?php
+
 $site = 'https://vilarejo.cafe';
-$consumer_key = 'ck_1234';
-$consumer_secret = 'cs_1234';
-$url = $site . '/wp-json/wc/v3/orders?consumer_key=' . $consumer_key . '&consumer_secret=' . $consumer_secret . '&per_page=1';
+$consumer_key = 'ck_129766edbd967a733d2c5b59465a7f98dc3f375d';
+$consumer_secret = 'cs_1d3bfa828901b9f5f455ff73b4360bb607d6ae76';
+$urlFinal = $site . '/wp-json/wc/v3/orders?consumer_key=' . $consumer_key . '&consumer_secret=' . $consumer_secret . '&per_page=10';
+
+$parametros = array(
+    'accept: application/json',
+    'Content-type: application/json',
+    );
 
 $ch = curl_init(); //  Initiate curl
-curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true ); // Will return the response, if false it print the response
-curl_setopt ( $ch, CURLOPT_URL, $url ); // Set the url
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+curl_setopt($ch, CURLOPT_URL, $urlFinal);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+curl_setopt($ch, CURLOPT_HTTPHEADER, $parametros);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-$result = curl_exec ( $ch ); // Execute
-curl_close ( $ch ) ; // Closing
+$result = curl_exec($ch);
+if (curl_errno($ch)) {
+echo 'Error:' . curl_error($ch);
+}
+curl_close($ch);
 
- echo '<b>Resultado 01</b><br>' . $result;
+$json = json_decode($result, true);
 
- echo '<br><br><br><b>Resultado 02</b><br>';
- var_dump(json_decode($result, true)); // Will dump a beauty json :3
+ $json = json_decode($result, true);
+ echo "<b>Pedido " . $json[0]['id'] . "</b> - " . $json[0]['billing']['first_name'] . " " . $json[0]['billing']['last_name'];
+ 
+ echo "<br><br><b>json </b>" . $result;
 
 ?>
