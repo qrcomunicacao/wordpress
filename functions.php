@@ -14,6 +14,13 @@ function post_title_shortcode(){ // Nome do shortcode
 add_shortcode('post_title','post_title_shortcode');
 
 
+// Shortcode for excerpt
+function post_resumo(){ // Nome do shortcode
+    return wp_trim_words( get_the_content(), 40, '...' ); // Função do WP/WOO
+}
+add_shortcode('resumo','post_resumo'); // [shortcode], Nome da função
+
+
 // Shortcode Post permalink
 function post_permalink_shortcode(){
     return get_the_permalink();
